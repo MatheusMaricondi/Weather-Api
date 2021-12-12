@@ -1,11 +1,11 @@
 import RoutesPage from '../src/routes/public_routes';
-import { LoadingProvider } from './store/loadingContext';
+import GlobalContext from './context';
 
 function App() {
   return (
-    <LoadingProvider>
+    <GlobalContext>
       <RoutesPage />
-    </LoadingProvider>
+    </GlobalContext>
   );
 }
 

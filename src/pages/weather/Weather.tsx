@@ -1,24 +1,25 @@
 import { useState, useEffect, useContext } from 'react'
-import api from '../../services/api'
 import { weatherResponse, locationResponse } from './types'
-import { apiConstants } from '../../constants/api'
-import { getLocation } from '../../services/getLocation'
-import { LoadingProvider } from '../../store/loadingContext'
+import LoadingContext from '../../context/loading'
+import { useFetchWeather } from '../../hooks/useFetchWeather'
+
 
 const Weather = () => {
-    const [weatherData, setWeatherData] = useState<weatherResponse>()
-    const [location, setLocation] = useState({})
+    // const [weatherData, fetchWeather] = useFetchWeather()
+    const { state, setState } = useContext(LoadingContext)
 
     useEffect(() => {
-        console.log(LoadingProvider)
-        const response = getLocation()
-        setLocation(response)
+        setState({ loading: true })
+        navigator.geolocation.getCurrentPosition(local => {
+            console.log(local.coords)
+            setState({ loading: false })
+        })
     }, [])
 
 
     return (
         <div>
-            Weather {weatherData?.timezone}
+            Weather {state.loading ? 'LOADING START' : 'LOADING STOP'}
         </div>
     )
 }
