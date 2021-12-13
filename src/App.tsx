@@ -1,11 +1,11 @@
 import RoutesPage from '../src/routes/public_routes';
-import GlobalContext from './context';
+import { StateContextProvider } from './context/state';
 
 function App() {
   return (
-    <GlobalContext>
+    <StateContextProvider>
       <RoutesPage />
-    </GlobalContext>
+    </StateContextProvider>
   );
 }
 

@@ -1,23 +1,25 @@
 import React, { useState, createContext, FC } from 'react'
 
-type LoadingType = {
-    loading: boolean
+type StateType = {
+    loading: boolean,
+    language: string
 }
 
-type PropsLoadingContext = {
-    state: LoadingType,
-    setState: React.Dispatch<React.SetStateAction<LoadingType>>
+type PropsStateContext = {
+    state: StateType,
+    setState: React.Dispatch<React.SetStateAction<StateType>>
 }
 
 const DEFAULT_VALUE = {
     state: {
-        loading: false
+        loading: false,
+        language: 'en'
     },
     setState: () => { }
 }
-const LoadingContext = createContext<PropsLoadingContext>(DEFAULT_VALUE)
+const LoadingContext = createContext<PropsStateContext>(DEFAULT_VALUE)
 
-const LoadingContextProvider: FC = ({ children }) => {
+const StateContextProvider: FC = ({ children }) => {
     const [state, setState] = useState(DEFAULT_VALUE.state)
 
     return (
@@ -33,5 +35,5 @@ const LoadingContextProvider: FC = ({ children }) => {
 
 }
 
-export { LoadingContextProvider }
+export { StateContextProvider }
 export default LoadingContext
