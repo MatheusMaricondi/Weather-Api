@@ -1,7 +1,8 @@
 import RoutesPage from '../src/routes/public_routes';
+import './App.css';
 import { StateContextProvider } from './context/state';
 
-function App() {
+const App = () => {
   return (
     <StateContextProvider>
       <RoutesPage />
