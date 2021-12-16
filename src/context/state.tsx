@@ -2,7 +2,11 @@ import React, { useState, createContext, FC } from 'react'
 
 type StateType = {
     loading: boolean,
-    language: string
+    language: string,
+    geoLocation: {
+        lat: number,
+        lng: number
+    }
 }
 
 type PropsStateContext = {
@@ -13,27 +17,31 @@ type PropsStateContext = {
 const DEFAULT_VALUE = {
     state: {
         loading: false,
-        language: 'en'
+        language: 'en',
+        geoLocation: {
+            lat: 0,
+            lng: 0
+        }
     },
     setState: () => { }
 }
-const LoadingContext = createContext<PropsStateContext>(DEFAULT_VALUE)
+const StateContext = createContext<PropsStateContext>(DEFAULT_VALUE)
 
 const StateContextProvider: FC = ({ children }) => {
     const [state, setState] = useState(DEFAULT_VALUE.state)
-
+    console.log('STATE ', state)
     return (
-        <LoadingContext.Provider
+        <StateContext.Provider
             value={{
                 state,
                 setState
             }}
         >
             {children}
-        </LoadingContext.Provider>
+        </StateContext.Provider>
     )
 
 }
 
 export { StateContextProvider }
-export default LoadingContext
+export default StateContext

@@ -1,77 +1,71 @@
-import { useState, useEffect, useContext } from 'react'
+import { useState, useEffect, useContext, useRef } from 'react'
 import { weatherResponse, locationResponse } from './types'
 import api from '../../services/api'
 import { apiConstants } from '../../constants/api'
 import StateContext from '../../context/state'
 import styles from './styles.module.scss'
-import { Loader } from "@googlemaps/js-api-loader";
-import { Select } from 'antd'
+import { Select, Card } from 'antd'
+import GoogleApiWrapper from '../../components/Maps/Maps'
+import { useMessages } from '../../services/messages'
 
 const Weather = () => {
     const { state, setState } = useContext(StateContext)
-    const [geoLocation, setGeoLocation] = useState<locationResponse>({ latitude: 0, longitude: 0 })
     const [weatherData, setWeatherData] = useState<weatherResponse>()
-
-    let map: google.maps.Map;
-    const additionalOptions = {};
-    let getItem: any = document.getElementById("map")
+    const [renderMap, setRenderMap] = useState(false)
+    const messages = useMessages()
 
     useEffect(() => {
-        setState({ loading: true, language: state.language })
+        setState({ loading: true, language: state.language, geoLocation: state.geoLocation })
         navigator.geolocation.getCurrentPosition(local => {
-            console.log(local.coords)
-            setGeoLocation(local.coords)
+            const geo = {
+                lat: local.coords.latitude,
+                lng: local.coords.longitude
+            }
+            setState({ loading: state.loading, language: state.language, geoLocation: geo })
+            setRenderMap(true)
         })
     }, [])
     useEffect(() => {
-        if (geoLocation) {
+        if (renderMap) {
             fetchWeatherApi()
-            initMap()
         }
-    }, [geoLocation])
+    }, [renderMap])
 
     const fetchWeatherApi = (lang: string = state.language) => {
-        console.log(lang)
-
-        // api.get<weatherResponse>(`/onecall?lat=${geoLocation?.latitude}&lon=${geoLocation?.longitude}&exclude=hourly,daily&appid=${apiConstants.api_key}&lang=${lang}`).then(res => {
-        api.get<weatherResponse>(`/current.json?key=${apiConstants.api_key}&q=${geoLocation?.latitude} ${geoLocation?.longitude}&aqi=no&lang=${lang}`).then(res => {
-            console.log(res.data)
+        api.get<weatherResponse>(`/current.json?key=${apiConstants.api_key}&q=${state.geoLocation?.lat} ${state.geoLocation?.lng}&aqi=no&lang=${lang}`).then(res => {
             setWeatherData(res.data)
-            setState({ loading: false, language: state.language })
+            setState({ loading: false, language: lang, geoLocation: state.geoLocation })
         }).catch(err => {
             console.log('Get weather fail')
         })
     }
 
     const changeLanguage = (value: string) => {
-        setState({ loading: state.loading, language: value })
         fetchWeatherApi(value)
-    }
-
-    function initMap(): void {
-        const loader = new Loader({
-            apiKey: apiConstants.api_maps,
-            version: "weekly",
-            ...additionalOptions,
-        });
-
-        loader.load().then(() => {
-            map = new google.maps.Map(getItem, {
-                center: { lat: geoLocation?.latitude, lng: geoLocation?.longitude },
-                zoom: 8,
-            });
-        });
-
     }
 
     return (
         <div>
             <div className={styles.language_content}>
-                <Select defaultValue='en' onChange={changeLanguage}>
-                    <option value={'en'}>🇺🇸 Ingles</option>
-                    <option value={'pt'}>🇧🇷 Portugues</option>
-                </Select>
+                <div className={styles.select_content}>
+                    <Select defaultValue='en' onChange={changeLanguage}>
+                        <option value={'en'}>🇺🇸 {messages.get('lang.text.en')}</option>
+                        <option value={'pt'}>🇧🇷 {messages.get('lang.text.pt')}</option>
+                    </Select>
+                </div>
+
+                <Card
+                    style={{ width: '70%', height: '500px', marginTop: 5 }}
+                    title={messages.get('weather.location')}
+                    size="small"
+                    loading={state.loading}
+                >
+                    <GoogleApiWrapper></GoogleApiWrapper>
+                </Card>
+                <div></div>
             </div>
+
+
         </div>
     )
 }

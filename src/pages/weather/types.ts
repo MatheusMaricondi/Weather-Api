@@ -25,6 +25,6 @@ export type weatherResponse = {
 }
 
 export type locationResponse = {
-    latitude: number,
-    longitude: number
+    lat: number,
+    lng: number
 }
