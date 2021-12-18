@@ -1,5 +1,10 @@
 {
     "weather.location": "Sua localização",
     "lang.text.en": "Inglês",
-    "lang.text.pt": "Português"
+    "lang.text.pt": "Português",
+    "location.text.title": "Descrição da sua localização",
+    "location.text.name": "Nome",
+    "location.text.localtime": "Horário Local",
+    "location.text.region": "Região",
+    "location.text.country": "País"
 }

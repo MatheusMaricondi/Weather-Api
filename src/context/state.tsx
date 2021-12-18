@@ -5,7 +5,8 @@ type StateType = {
     language: string,
     geoLocation: {
         lat: number,
-        lng: number
+        lng: number,
+        render: boolean
     }
 }
 
@@ -17,10 +18,11 @@ type PropsStateContext = {
 const DEFAULT_VALUE = {
     state: {
         loading: false,
-        language: 'en',
+        language: navigator.language,
         geoLocation: {
             lat: 0,
-            lng: 0
+            lng: 0,
+            render: false
         }
     },
     setState: () => { }
@@ -29,7 +31,6 @@ const StateContext = createContext<PropsStateContext>(DEFAULT_VALUE)
 
 const StateContextProvider: FC = ({ children }) => {
     const [state, setState] = useState(DEFAULT_VALUE.state)
-    console.log('STATE ', state)
     return (
         <StateContext.Provider
             value={{

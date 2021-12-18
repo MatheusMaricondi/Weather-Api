@@ -12,6 +12,6 @@ type Message = { [key: string]: Messages }
 // }
 
 export const messagesMap = {
-    'en': messages_en,
-    'pt': messages_pt
+    'en-US': messages_en,
+    'pt-BR': messages_pt
 } as Message
