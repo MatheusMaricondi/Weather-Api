@@ -1,11 +1,11 @@
-.language_content {
+.location_content {
     display: flex;
-    flex-direction: row;  
-    padding: 20px;;
-    justify-content: space-evenly;
+    flex-direction: column;  
+    justify-content: space-evenly;;
 }
 .select_content {
-    margin-right: 20px;
+    margin: 20px;
+    align-self: flex-end;
 }
 .ant-card-body {
     padding: 0px;
@@ -14,4 +14,86 @@
 .content {
     display: flex;
     flex-direction: column;
+}
+
+.temp_container {
+    display: flex;
+    flex-direction: row;
+}
+
+.temp {
+    font-size: 40px;
+    font-weight: bold;
+    padding: 10px 0;
+    padding-left: 10px;
+}
+.degrees {
+    font-size: 14px;
+    padding-top: 20px;
+}
+.current_desc {
+    font-size: 10px;
+    display: flex;
+    flex-direction: column;
+    padding: 15px 20px;
+    font-weight: 200;
+}
+.weather_current_container {
+    margin: 100px 100px;
+}  
+
+.weather_forecast_container {
+    margin: 0px 100px;
+}
+.background_night {
+    background-image: url('https://cdn.weatherapi.com/weather-widget/img/weatherapi-backgrounds/4_widget3.png');
+    border-radius: 10px;
+    overflow: hidden;
+    width: 40%;
+    height: 200px;
+    align-self: center;
+    color: white;
+}
+
+.background_day {
+    background-image: url('https://cdn.weatherapi.com/weather-widget/img/weatherapi-backgrounds/4_widget4.png');
+    border-radius: 10px;
+    overflow: hidden;
+    width: 40%;
+    height: 200px;
+    align-self: center;
+    color: white;
+}
+
+.current_container {
+    display: flex;
+    align-items: flex-start;
+    margin-top: 100px;
+    flex-direction: column;
+}
+
+.current_title {
+    padding: 30px 0 20px 0;
+    text-align: center;
+    font-size: 18px;
+}
+
+.current_content {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    padding-left: 40px;
+}
+
+.desc_content {
+    display: flex;
+    flex-basis: 40%;
+}
+
+.current_img {
+    flex-basis: 45%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
 }

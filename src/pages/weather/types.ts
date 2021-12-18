@@ -1,10 +1,4 @@
 
-type weatherType = {
-    id: number,
-    main: string,
-    description: string,
-    icon: string
-}
 
 type conditionType = {
     code: number,
@@ -16,13 +10,38 @@ type currentType = {
     dt: number,
     sunrise: number,
     sunset: number,
-    temp: number,
+    temp_c: number,
+    temp_f: number,
+    is_day: number,
+    wind_mph: number,
+    wind_kph: number
     pressure: number,
     humidity: number,
-    clouds: number,
-    weather: weatherType,
+    cloud: number,
+    condition: conditionType,
+    feelslike_c: number,
+    feelslike_f: number
+}
+
+type dayType = {
+    maxtemp_c: number,
+    maxtemp_f: number,
+    mintemp_c: number,
+    mintemp_f: number,
+    avgtemp_c: number,
     condition: conditionType
 }
+
+type forecastDayType = {
+    date: string,
+    day: dayType
+}
+
+
+type forecastType = {
+    forecastDay: forecastDayType[]
+}
+
 
 export type locationType = {
     country: string,
@@ -37,7 +56,8 @@ export type weatherResponse = {
     lon: number,
     timezone: string,
     current: currentType,
-    location: locationType
+    location: locationType,
+    forecast: forecastType
 }
 
 export type locationResponse = {
@@ -45,7 +65,3 @@ export type locationResponse = {
     lng: number
 }
 
-export type staticData = {
-    icon_url?: string,
-    description?: string
-}

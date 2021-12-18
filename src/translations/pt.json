@@ -6,5 +6,10 @@
     "location.text.name": "Nome",
     "location.text.localtime": "Horário Local",
     "location.text.region": "Região",
-    "location.text.country": "País"
+    "location.text.country": "País",
+    "weather.current.wind": "Vento",
+    "weather.current.humidity": "Umidade",
+    "weather.current.title": "Tempo agora",
+    "weather.forecast.title": "Previsão",
+    "weather.current.feelslike": "Sensação"
 }

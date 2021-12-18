@@ -24,10 +24,12 @@ const Location = () => {
     return (
         <Card
             style={{
-                flexBasis: '35%',
-                height: '300px',
-                marginTop: 5,
-                marginLeft: 50,
+                // flexBasis: '35%',
+                height: '200px',
+                marginTop: 10,
+                width: '90%',
+                alignSelf: "center"
+                // marginLeft: 50,
             }}
             title={messages.get('weather.location')}
             size="small"
