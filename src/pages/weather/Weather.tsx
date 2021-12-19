@@ -1,6 +1,6 @@
 import { useState, useEffect, useContext } from 'react'
 import { Select, Descriptions, Button, Modal, Skeleton } from 'antd'
-import { weatherResponse, locationType } from './types'
+import { weatherTypes, locationType } from '../../helpers/types/api'
 import api from '../../services/api'
 import { apiConstants } from '../../constants/api'
 import StateContext from '../../context/state'
@@ -12,9 +12,9 @@ import Forecast from './forecast/Forecast'
 import { MdLocationOn } from 'react-icons/md'
 
 const Weather = () => {
-    const { generalState, setGeneralState, geoState, setGeoState } = useContext(StateContext)
+    const { generalState, setGeneralState, geoState, setGeoState, setForecastState } = useContext(StateContext)
     const [locationData, setLocationData] = useState<locationType>()
-    const [staticData, setStaticData] = useState<weatherResponse>()
+    const [staticData, setStaticData] = useState<weatherTypes>()
     const [locationModal, setLocationModal] = useState(false)
 
     const messages = useMessages()
@@ -39,8 +39,8 @@ const Weather = () => {
     const fetchWeatherApi = (lang: string = generalState.language) => {
         const new_lang = changeLanguageString(lang)
 
-        api.get<weatherResponse>(`/forecast.json?key=${apiConstants.api_key}&days=3&q=${geoState.lat} ${geoState.lng}&aqi=no&lang=${new_lang}`).then(res => {
-            console.log(res.data.forecast)
+        api.get<weatherTypes>(`/forecast.json?key=${apiConstants.api_key}&days=3&q=${geoState.lat} ${geoState.lng}&aqi=no&lang=${new_lang}`).then(res => {
+            console.log(res.data)
             saveData(res.data)
             setGeneralState({ language: lang, loading: false })
         }).catch(err => {
@@ -48,9 +48,11 @@ const Weather = () => {
         })
     }
 
-    const saveData = (data: weatherResponse) => {
+    const saveData = (data: weatherTypes) => {
+        setForecastState({ data: data.forecast, render: true })
         setLocationData(data.location)
         setStaticData(data)
+
     }
 
     const getData = () => {
@@ -132,45 +134,12 @@ const Weather = () => {
                     </div>
                 </Skeleton>
             </div>
-
-
             <Forecast />
-            {/* <div className={styles.current_container}>
-                <div className={staticData?.current.is_day ? styles.background_day : styles.background_night}>
-                    <div className={styles.current_title}>{messages.get('weather.forecast.title')}</div>
-                    <div className={styles.current_content}>
-                        <div className={styles.current_img}>
-                            <div>
-                                <img src={staticData?.current?.condition?.icon} />
-                            </div>
-                            <div>{staticData?.current.condition.text}</div>
-                        </div>
-                        <div className={styles.current_desc}>
-                            {staticData?.forecast?.forecastDay?.map(it => (
-                                <div>
-                                    <div className={styles.temp_container}>
-                                        <div className={styles.temp}>{it.day.condition}</div>
-                                        <div className={styles.degrees}>{getData().degrees}</div>
-                                    </div>
-                                    <div className={styles.current_desc}>
-                                        <div>{`${messages.get('weather.current.wind')}: ${getData().wind}`}</div>
-                                        <div>{`${messages.get('weather.current.humidity')}: ${getData().humidity}`}</div>
-                                        <div>{`${messages.get('weather.current.feelslike')}: ${getData().feelslike}`}</div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-
-                </div>
-
-            </div> */}
             <Modal
                 title={messages.get('weather.location')}
                 visible={locationModal}
                 width={700}
                 onOk={() => setLocationModal(false)}
-            // cancelButtonProps={{}}
             >
                 <Location />
             </Modal>

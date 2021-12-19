@@ -14,5 +14,6 @@
     "weather.current.feelslike": "Sensação",
     "forecast.tab.temp": "Temperatura",
     "forecast.tab.rain": "Chuva",
-    "forecast.tab.wind": "Vento"
+    "forecast.tab.wind": "Vento",
+    "forecast.tab.datetime": "Data hora"
 }

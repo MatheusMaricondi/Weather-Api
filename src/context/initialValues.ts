@@ -11,10 +11,17 @@ const DEFAULT_GEO_VALUE = {
     render: false
 }
 
+const DEFAULT_FORECAST_VALUE = {
+    data: [],
+    render: false
+}
+
 export const DEFAULT_VALUE = {
     generalState: DEFAULT_GENERAL_VALUE,
     setGeneralState: () => { },
     geoState: DEFAULT_GEO_VALUE,
-    setGeoState: () => { }
+    setGeoState: () => { },
+    forecastState: DEFAULT_FORECAST_VALUE,
+    setForecastState: () => { }
 }
 
