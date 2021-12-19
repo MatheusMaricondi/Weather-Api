@@ -1,11 +1,21 @@
 .location_content {
+    flex-basis: 40%;
     display: flex;
-    flex-direction: column;  
+    flex-direction: row;  
     justify-content: space-evenly;;
+}
+.current {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
 }
 .select_content {
     margin: 20px;
     align-self: flex-end;
+}
+.show_content {
+    align-self: center;
+    padding-left: 200px;
 }
 .ant-card-body {
     padding: 0px;
@@ -22,7 +32,7 @@
 }
 
 .temp {
-    font-size: 40px;
+    font-size: 30px;
     font-weight: bold;
     padding: 10px 0;
     padding-left: 10px;
@@ -49,7 +59,7 @@
     background-image: url('https://cdn.weatherapi.com/weather-widget/img/weatherapi-backgrounds/4_widget3.png');
     border-radius: 10px;
     overflow: hidden;
-    width: 40%;
+    width: 400px;
     height: 200px;
     align-self: center;
     color: white;
@@ -59,7 +69,7 @@
     background-image: url('https://cdn.weatherapi.com/weather-widget/img/weatherapi-backgrounds/4_widget4.png');
     border-radius: 10px;
     overflow: hidden;
-    width: 40%;
+    width: 400px;
     height: 200px;
     align-self: center;
     color: white;
@@ -68,7 +78,7 @@
 .current_container {
     display: flex;
     align-items: flex-start;
-    margin-top: 100px;
+    margin-top: 50px;
     flex-direction: column;
 }
 
@@ -79,21 +89,33 @@
 }
 
 .current_content {
+    flex-basis: 40%;
     display: flex;
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-evenly;
     align-items: center;
-    padding-left: 40px;
 }
 
 .desc_content {
     display: flex;
-    flex-basis: 40%;
+    flex-basis: 55%;
 }
 
 .current_img {
-    flex-basis: 45%;
+    flex-basis: 30%;
     display: flex;
     flex-direction: row;
     align-items: center;
+    margin-left: 20px;
+}
+
+.sk_location_content_lf {
+    margin-top: 80px;
+    margin-left: 200px;
+    margin-right: 10px;
+}
+.sk_location_content_rt {
+    margin-top: 80px;
+    margin-left: 10px;
+    margin-right: 200px;    
 }

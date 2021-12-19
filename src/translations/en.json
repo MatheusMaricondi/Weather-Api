@@ -11,5 +11,8 @@
 	"weather.current.humidity": "Humidity",
 	"weather.current.title": "Time now",
 	"weather.forecast.title": "Forecast",
-	"weather.current.feelslike": "Feelslike"
+	"weather.current.feelslike": "Feelslike",
+	"forecast.tab.temp": "Temperature",
+	"forecast.tab.rain": "Rain",
+	"forecast.tab.wind": "Wind"
 }

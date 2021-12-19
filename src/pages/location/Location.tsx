@@ -1,43 +1,18 @@
-import React, { useContext, useEffect } from "react";
-import { Card } from "antd";
+import React, { useContext } from "react";
 import StateContext from '../../context/state'
-import { useMessages } from '../../services/messages'
-import GoogleApiWrapper from '../../components/Maps/Maps'
-import styles from './styles.module.scss'
+import { Skeleton } from "antd";
+
 
 const Location = () => {
-    const { state, setState } = useContext(StateContext)
-    const messages = useMessages()
-
-    useEffect(() => {
-        setState({ loading: true, language: state.language, geoLocation: state.geoLocation })
-        navigator.geolocation.getCurrentPosition(local => {
-            const geo = {
-                lat: local.coords.latitude,
-                lng: local.coords.longitude,
-                render: true
-            }
-            setState({ loading: state.loading, language: state.language, geoLocation: geo })
-        })
-    }, [])
+    const { geoState, generalState } = useContext(StateContext)
 
     return (
-        <Card
-            style={{
-                // flexBasis: '35%',
-                height: '200px',
-                marginTop: 10,
-                width: '90%',
-                alignSelf: "center"
-                // marginLeft: 50,
-            }}
-            title={messages.get('weather.location')}
-            size="small"
-            loading={state.loading}
-        >
-            <GoogleApiWrapper />
-        </Card>
-
+        <Skeleton loading={generalState.loading} active avatar round paragraph>
+            <img src={`https://maps.googleapis.com/maps/api/staticmap?center=${geoState.lat},${geoState.lng}&zoom=13&size=800x360&maptype=roadmap
+                    &markers=color:red%7C${geoState.lat},${geoState.lng}
+                    &key=AIzaSyBpwGjBl_vt1yMDqD25Vy-gnzvnJK_vceI`}
+            />
+        </Skeleton>
     )
 }
 

@@ -4,8 +4,8 @@ import { messagesMap } from '../translations/index'
 
 export const useMessages = () => {
 
-    const { state } = useContext(StateContext)
-    const get = (key: any) => messagesMap[state.language][key];
+    const { generalState } = useContext(StateContext)
+    const get = (key: any) => messagesMap[generalState.language][key];
 
     return { get };
 };
