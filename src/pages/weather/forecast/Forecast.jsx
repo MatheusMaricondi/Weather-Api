@@ -12,7 +12,7 @@ const Forecast = () => {
     const messages = useMessages()
     const { forecastState, generalState } = useContext(StateContext)
     const { dayHours } = dataConstants
-
+    const { language } = generalState
 
     useEffect(() => {
         if (forecastState.render) {
@@ -27,11 +27,12 @@ const Forecast = () => {
     }, [generalState.loading, generalState.language])
 
     const normalizeData = () => {
-        const { language } = generalState
+
         const br_lang = 'pt-BR'
 
         let allForecastDay = []
         let forecastDay = {}
+
         forecastState.data.forecastday.map(forecast => {
             forecastDay = {
                 icon: forecast.day.condition.icon,
@@ -59,27 +60,64 @@ const Forecast = () => {
     }
 
     function drawChart() {
-        let dataRows = [[messages.get('forecast.tab.datetime'), messages.get('forecast.tab.temp'), messages.get('forecast.tab.rain'), messages.get('forecast.tab.wind')]]
+
+        const br_lang = 'pt-BR'
+        const temp_l = language === br_lang ? 'ºC' : 'ºF'
+        const rain_l = language == br_lang ? 'mm' : 'in'
+        const wind_l = language === br_lang ? 'k/h' : 'm/s'
+
+
+        let dataRowsTemp = [[messages.get('forecast.tab.datetime'), `${messages.get('forecast.tab.temp')} - ${temp_l}`]]
+        let dataRowsRain = [[messages.get('forecast.tab.datetime'), `${messages.get('forecast.tab.rain')} - ${rain_l}`]]
+        let dataRowsWind = [[messages.get('forecast.tab.datetime'), `${messages.get('forecast.tab.wind')} - ${wind_l}`]]
 
         forecastData[0].hours.forEach(hour => {
-            console.log(hour)
-            dataRows.push([hour.datatime, hour.temp, hour.rain, hour.wind])
+            dataRowsTemp.push([hour.datatime, hour.temp])
+            dataRowsRain.push([hour.datatime, hour.rain])
+            dataRowsWind.push([hour.datatime, hour.wind])
         })
-        let data = GoogleCharts.api.visualization.arrayToDataTable(dataRows)
+        let dataTemp = GoogleCharts.api.visualization.arrayToDataTable(dataRowsTemp)
+        let dataRain = GoogleCharts.api.visualization.arrayToDataTable(dataRowsRain)
+        let dataWind = GoogleCharts.api.visualization.arrayToDataTable(dataRowsWind)
 
-        const options = {
-            title: '',
+        const optionsTemp = {
+            title: messages.get('forecast.tab.temp'),
             curveType: 'function',
             legend: { position: 'right' },
-            colors: ['#a30006', '#457d97', '#96d7eb'],
+            colors: ['#a30006'],
+            animation: {
+                duration: 1000,
+                startup: true
+            },
+        };
+        const optionsRain = {
+            title: messages.get('forecast.tab.rain'),
+            curveType: 'function',
+            legend: { position: 'right' },
+            colors: ['#457d97'],
+            animation: {
+                duration: 1000,
+                startup: true
+            },
+        };
+        const optionsWind = {
+            title: messages.get('forecast.tab.wind'),
+            curveType: 'function',
+            legend: { position: 'right' },
+            colors: ['#96d7eb'],
             animation: {
                 duration: 1000,
                 startup: true
             },
         };
 
-        const area_temp_chart = new GoogleCharts.api.visualization.AreaChart(document.getElementById("chart"));
-        area_temp_chart.draw(data, options);
+        const area_temp_chart = new GoogleCharts.api.visualization.LineChart(document.getElementById("chart_temp"));
+        const area_rain_chart = new GoogleCharts.api.visualization.LineChart(document.getElementById("chart_rain"));
+        const area_wind_chart = new GoogleCharts.api.visualization.LineChart(document.getElementById("chart_wind"));
+
+        area_temp_chart.draw(dataTemp, optionsTemp);
+        area_rain_chart.draw(dataRain, optionsRain);
+        area_wind_chart.draw(dataWind, optionsWind);
     }
 
 
@@ -89,7 +127,9 @@ const Forecast = () => {
                 title={messages.get('weather.forecast.title')}
                 loading={generalState.loading}
             >
-                <div style={{ height: '500px' }} id='chart'></div>
+                <div style={{ height: '300px', width: '100%' }} id='chart_temp'></div>
+                <div style={{ height: '300px' }} id='chart_rain'></div>
+                <div style={{ height: '300px' }} id='chart_wind'></div>
             </Card>
         </div>
     )
