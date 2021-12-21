@@ -9,7 +9,7 @@ const Location = () => {
     return (
         <Skeleton loading={generalState.loading} active avatar round paragraph>
             <img src={`https://maps.googleapis.com/maps/api/staticmap?center=${geoState.lat},${geoState.lng}&zoom=13&size=800x360&maptype=roadmap
-                    &markers=color:red%7C${geoState.lat},${geoState.lng}
+                    &markers=color:black%7C${geoState.lat},${geoState.lng}
                     &key=AIzaSyBpwGjBl_vt1yMDqD25Vy-gnzvnJK_vceI`}
             />
         </Skeleton>

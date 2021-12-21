@@ -1,5 +1,4 @@
 import React, { useState, createContext, FC } from 'react'
-// import { generalType, geoLocationType } from './types'
 import { generalType, geoLocationType } from '../helpers/types/state'
 import { forecastType } from '../helpers/types/api'
 import { DEFAULT_VALUE } from './initialValues'

@@ -1,21 +1,21 @@
 import { useState, useEffect, useContext } from 'react'
 import { Select, Descriptions, Button, Modal, Skeleton } from 'antd'
 import { weatherTypes, locationType } from '../../helpers/types/api'
-import api from '../../services/api'
-import { apiConstants } from '../../constants/api'
 import StateContext from '../../context/state'
 import styles from './styles.module.scss'
 import { useMessages } from '../../services/messages'
-import { changeLanguageString } from '../../helpers/utils'
-import Location from '../location/Location'
-import Forecast from './forecast/Forecast'
 import { MdLocationOn } from 'react-icons/md'
+import Location from '../../components/location/Location'
+import Forecast from '../../components/forecast/Forecast'
+import SelectCities from '../../components/select/SelectCities'
+import fetchWeatherApiHook from '../../services/hooks/FetchWeatherApiHook'
 
 const Weather = () => {
     const { generalState, setGeneralState, geoState, setGeoState, setForecastState } = useContext(StateContext)
     const [locationData, setLocationData] = useState<locationType>()
     const [staticData, setStaticData] = useState<weatherTypes>()
     const [locationModal, setLocationModal] = useState(false)
+    const { fetchWeatherApi } = fetchWeatherApiHook()
 
     const messages = useMessages()
 
@@ -32,27 +32,29 @@ const Weather = () => {
 
     useEffect(() => {
         if (geoState.render) {
-            fetchWeatherApi()
+            fetchWeatherApi().then(res => {
+                saveData(res.data)
+            }).catch(err => {
+                console.log(err)
+            })
         }
     }, [geoState.render])
 
-    const fetchWeatherApi = (lang: string = generalState.language) => {
-        const new_lang = changeLanguageString(lang)
+    // const fetchWeatherApi = (lang: string = generalState.language) => {
+    //     const new_lang = changeLanguageString(lang)
 
-        api.get<weatherTypes>(`/forecast.json?key=${apiConstants.api_key}&days=3&q=${geoState.lat} ${geoState.lng}&aqi=no&lang=${new_lang}`).then(res => {
-            console.log(res.data)
-            saveData(res.data)
-            setGeneralState({ language: lang, loading: false })
-        }).catch(err => {
-            console.log('Get weather fail')
-        })
-    }
+    //     api.get<weatherTypes>(`/forecast.json?key=${apiConstants.api_key}&days=3&q=${geoState.lat} ${geoState.lng}&aqi=no&lang=${new_lang}`).then(res => {
+    //         console.log(res.data)
+    //         saveData(res.data)
+    //         setGeneralState({ language: lang, loading: false })
+    //     }).catch(err => {
+    //         console.log('Get weather fail')
+    //     })
+    // }
 
-    const saveData = (data: weatherTypes) => {
-        setForecastState({ data: data.forecast, render: true })
+    const saveData = (data: any) => {
         setLocationData(data.location)
         setStaticData(data)
-
     }
 
     const getData = () => {
@@ -134,12 +136,19 @@ const Weather = () => {
                     </div>
                 </Skeleton>
             </div>
+            <SelectCities />
             <Forecast />
             <Modal
                 title={messages.get('weather.location')}
                 visible={locationModal}
                 width={700}
+                okButtonProps={{}}
+                onCancel={() => setLocationModal(false)}
                 onOk={() => setLocationModal(false)}
+                keyboard
+                okText={messages.get('common.buttom.close')}
+                cancelButtonProps={{ style: { display: 'none' } }}
+                okType='link'
             >
                 <Location />
             </Modal>

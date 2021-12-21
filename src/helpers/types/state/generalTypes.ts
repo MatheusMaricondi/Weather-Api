@@ -3,4 +3,11 @@ type generalType = {
     language: string
 }
 
-export default generalType
+type citiesType = {
+    country: string,
+    name: string,
+    lat: string,
+    lng: string
+}
+
+export type { generalType, citiesType } 

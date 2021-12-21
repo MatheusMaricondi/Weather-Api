@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
-import StateContext from '../../../context/state'
+import StateContext from '../../context/state'
+import { useMessages } from "../../services/messages";
+import { dataConstants } from '../../constants/data'
 import styles from './styles.module.scss'
-import { useMessages } from "../../../services/messages";
 import { GoogleCharts } from 'google-charts';
-import { dataConstants } from '../../../constants/data'
 import { Card } from "antd";
 
 

@@ -15,5 +15,7 @@
 	"forecast.tab.temp": "Temperature",
 	"forecast.tab.rain": "Rain",
 	"forecast.tab.wind": "Wind",
-	"forecast.tab.datetime": "Datetime"
+	"forecast.tab.datetime": "Datetime",
+	"forecast.search.placeholder": "Type the city",
+	"common.buttom.close": "Close"
 }

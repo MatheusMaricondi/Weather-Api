@@ -15,5 +15,7 @@
     "forecast.tab.temp": "Temperatura",
     "forecast.tab.rain": "Chuva",
     "forecast.tab.wind": "Vento",
-    "forecast.tab.datetime": "Data hora"
+    "forecast.tab.datetime": "Data hora",
+    "forecast.search.placeholder": "Digite a cidade",
+    "common.buttom.close": "Fechar"
 }
