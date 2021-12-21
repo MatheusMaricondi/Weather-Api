@@ -6,8 +6,8 @@ type generalType = {
 type citiesType = {
     country: string,
     name: string,
-    lat: string,
-    lng: string
+    lat: number,
+    lng: number
 }
 
 export type { generalType, citiesType } 

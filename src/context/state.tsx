@@ -1,6 +1,6 @@
 import React, { useState, createContext, FC } from 'react'
 import { generalType, geoLocationType } from '../helpers/types/state'
-import { forecastType } from '../helpers/types/api'
+import { forecastType, weatherTypes } from '../helpers/types/api'
 import { DEFAULT_VALUE } from './initialValues'
 
 type PropsStateContext = {
@@ -8,8 +8,8 @@ type PropsStateContext = {
     setGeneralState: React.Dispatch<React.SetStateAction<generalType>>,
     geoState: geoLocationType,
     setGeoState: React.Dispatch<React.SetStateAction<geoLocationType>>,
-    forecastState: forecastType,
-    setForecastState: React.Dispatch<React.SetStateAction<forecastType>>,
+    weatherState: weatherTypes,
+    setWeatherState: React.Dispatch<React.SetStateAction<weatherTypes>>,
 }
 
 const StateContext = createContext<PropsStateContext>(DEFAULT_VALUE)
@@ -17,7 +17,7 @@ const StateContext = createContext<PropsStateContext>(DEFAULT_VALUE)
 const StateContextProvider: FC = ({ children }) => {
     const [generalState, setGeneralState] = useState(DEFAULT_VALUE.generalState)
     const [geoState, setGeoState] = useState(DEFAULT_VALUE.geoState)
-    const [forecastState, setForecastState] = useState(DEFAULT_VALUE.forecastState)
+    const [weatherState, setWeatherState] = useState(DEFAULT_VALUE.weatherState)
 
     return (
         <StateContext.Provider
@@ -26,8 +26,8 @@ const StateContextProvider: FC = ({ children }) => {
                 setGeneralState,
                 geoState,
                 setGeoState,
-                forecastState,
-                setForecastState
+                weatherState,
+                setWeatherState
             }}
         >
             {children}

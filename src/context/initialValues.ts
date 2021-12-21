@@ -6,14 +6,13 @@ const DEFAULT_GENERAL_VALUE = {
 }
 
 const DEFAULT_GEO_VALUE = {
-    lat: 0,
-    lng: 0,
-    render: false
 }
 
-const DEFAULT_FORECAST_VALUE = {
-    data: [],
-    render: false
+const DEFAULT_WEATHER_VALUE = {
+}
+
+const DEFAULT_LOCATION_VALUE = {
+
 }
 
 export const DEFAULT_VALUE = {
@@ -21,7 +20,7 @@ export const DEFAULT_VALUE = {
     setGeneralState: () => { },
     geoState: DEFAULT_GEO_VALUE,
     setGeoState: () => { },
-    forecastState: DEFAULT_FORECAST_VALUE,
-    setForecastState: () => { }
+    weatherState: DEFAULT_WEATHER_VALUE,
+    setWeatherState: () => { }
 }
 

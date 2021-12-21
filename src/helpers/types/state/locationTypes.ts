@@ -1,7 +1,7 @@
 type geoLocationType = {
-    lat: number,
-    lng: number,
-    render: boolean
+    lat?: number,
+    lng?: number,
+    render?: boolean
 }
 
 export default geoLocationType

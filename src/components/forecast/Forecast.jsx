@@ -4,27 +4,43 @@ import { useMessages } from "../../services/messages";
 import { dataConstants } from '../../constants/data'
 import styles from './styles.module.scss'
 import { GoogleCharts } from 'google-charts';
-import { Card } from "antd";
+import { Card, Tabs } from "antd";
 
 
 const Forecast = () => {
     const [forecastData, setForecastData] = useState([])
     const messages = useMessages()
-    const { forecastState, generalState } = useContext(StateContext)
+    const { generalState, weatherState } = useContext(StateContext)
     const { dayHours } = dataConstants
     const { language } = generalState
+    const { TabPane } = Tabs
+    const tabs = [
+        {
+            id: messages.get('forecast.tab.temp'),
+            activeKey: 'chart_temp',
+        },
+        {
+            id: messages.get('forecast.tab.rain'),
+            activeKey: 'chart_rain',
+        },
+        {
+            id: messages.get('forecast.tab.wind'),
+            activeKey: 'chart_wind',
+        }
+    ];
+
 
     useEffect(() => {
-        if (forecastState.render) {
+        if (!generalState.loading) {
             normalizeData()
         }
-    }, [forecastState.render])
+    }, [generalState.loading])
 
     useEffect(() => {
         if (forecastData.length > 0) {
             GoogleCharts.load(drawChart)
         }
-    }, [generalState.loading, generalState.language])
+    }, [generalState.loading, generalState.language, generalState.searchCity, forecastData])
 
     const normalizeData = () => {
 
@@ -33,7 +49,7 @@ const Forecast = () => {
         let allForecastDay = []
         let forecastDay = {}
 
-        forecastState.data.forecastday.map(forecast => {
+        weatherState?.forecast?.forecastday.map(forecast => {
             forecastDay = {
                 icon: forecast.day.condition.icon,
                 text: forecast.day.condition.text,
@@ -120,16 +136,25 @@ const Forecast = () => {
         area_wind_chart.draw(dataWind, optionsWind);
     }
 
-
+    function handleChange() {
+        GoogleCharts.load(drawChart)
+    }
     return (
         <div className={styles.tab_container}>
             <Card
                 title={messages.get('weather.forecast.title')}
                 loading={generalState.loading}
             >
-                <div style={{ height: '300px', width: '100%' }} id='chart_temp'></div>
-                <div style={{ height: '300px' }} id='chart_rain'></div>
-                <div style={{ height: '300px' }} id='chart_wind'></div>
+                <Tabs onChange={handleChange} defaultActiveKey="chart_temp">
+
+                    {tabs.map((tab, idx) => (
+                        <TabPane forceRender tab={tab.id} key={idx}>
+                            <div style={{ height: '300px', width: '100%' }} id={tab.activeKey}> </div>
+                        </TabPane>
+                    ))}
+
+
+                </Tabs>
             </Card>
         </div>
     )

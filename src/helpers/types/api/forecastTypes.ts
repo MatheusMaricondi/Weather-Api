@@ -7,14 +7,14 @@ type forecastHourType = {
 
 }
 type forecastArrayType = {
-    date: Date,
-    day: forecastDayType,
-    hour: forecastHourType
+    date?: Date,
+    day?: forecastDayType,
+    hour?: forecastHourType[]
 }
 
 type forecastType = {
-    data: any,
-    render: boolean
+    data?: forecastArrayType[],
+    render?: boolean
 }
 
 export default forecastType
