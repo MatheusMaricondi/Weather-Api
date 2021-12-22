@@ -1,10 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Select } from "antd";
+import { Select, Divider } from "antd";
+import { FaMapMarkedAlt } from 'react-icons/fa'
 import { citiesType } from '../../helpers/types/state'
 import { useMessages } from "../../services/messages";
 import jsonCitiesFile from '../../helpers/cities.json'
 import fetchWeatherApiHook from '../../services/hooks/FetchWeatherApiHook'
 import StateContext from '../../context/state'
+import style from './styles.module.scss'
 
 
 
@@ -38,18 +40,20 @@ const SelectCities = () => {
     }
 
     return (
-        <Select
-            loading={generalState.loading}
-            showSearch
-            placeholder={messages.get('forecast.search.placeholder')}
-            onSelect={(value: any) => handleSelect(value)}
-            options={options}
-            style={{
-                margin: '20px',
-                width: '40%',
-                alignSelf: 'center'
-            }}
-        />
+        <div className={style.searchContainer}>
+
+            <Divider ><div><FaMapMarkedAlt size={40} /></div><div className={style.searchTitle}>{messages.get('cities.search.title')}</div> </Divider>
+            <div className={style.serachSubtitle}>{messages.get('cities.search.subtitle')}</div>
+
+            <Select
+                className={style.selectInput}
+                loading={generalState.loading}
+                showSearch
+                placeholder={messages.get('forecast.search.placeholder')}
+                onSelect={(value: any) => handleSelect(value)}
+                options={options}
+            />
+        </div>
     )
 }
 

@@ -1,9 +1,9 @@
 import { useState, useEffect, useContext } from 'react'
-import { Select, Descriptions, Button, Modal, Skeleton } from 'antd'
+import { Select, Descriptions, Button, Modal, Skeleton, Space } from 'antd'
 import StateContext from '../../context/state'
 import styles from './styles.module.scss'
 import { useMessages } from '../../services/messages'
-import { MdLocationOn } from 'react-icons/md'
+import { MdLocationOn, MdRefresh } from 'react-icons/md'
 import Location from '../../components/location/Location'
 import Forecast from '../../components/forecast/Forecast'
 import SelectCities from '../../components/select/SelectCities'
@@ -46,6 +46,11 @@ const Weather = () => {
 
     const changeLanguage = (value: string) => {
         fetchWeatherApi({ lang: value })
+    }
+
+    const handleRefresh = () => {
+        setGeneralState({ loading: true, language: generalState.language })
+        getGeolocation()
     }
 
     return (
@@ -96,7 +101,10 @@ const Weather = () => {
                             size='small'
                             extra={
                                 <div className={styles.show_content}>
-                                    <Button type='dashed' onClick={() => setLocationModal(true)} ><MdLocationOn size={23} /></Button>
+                                    <Space>
+                                        <Button type='dashed' onClick={() => setLocationModal(true)} ><MdLocationOn size={23} /></Button>
+                                        <Button type='default' onClick={() => handleRefresh()} ><MdRefresh size={23} /></Button>
+                                    </Space>
                                 </div>
                             }
                         >

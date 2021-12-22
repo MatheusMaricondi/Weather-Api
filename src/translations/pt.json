@@ -16,6 +16,8 @@
     "forecast.tab.rain": "Chuva",
     "forecast.tab.wind": "Vento",
     "forecast.tab.datetime": "Data hora",
-    "forecast.search.placeholder": "Digite a cidade",
-    "common.buttom.close": "Fechar"
+    "forecast.search.placeholder": "Digite um local",
+    "common.buttom.close": "Fechar",
+    "cities.search.title": "Outras localidades",
+    "cities.search.subtitle": "Se voce preferir pode tambem escolher outra localidade."
 }

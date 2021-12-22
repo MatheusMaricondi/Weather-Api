@@ -16,6 +16,8 @@
 	"forecast.tab.rain": "Rain",
 	"forecast.tab.wind": "Wind",
 	"forecast.tab.datetime": "Datetime",
-	"forecast.search.placeholder": "Type the city",
-	"common.buttom.close": "Close"
+	"forecast.search.placeholder": "Type a local",
+	"common.buttom.close": "Close",
+	"cities.search.title": "Other locations",
+	"cities.search.subtitle": "If you prefer, you can also choose another location."
 }
