@@ -16,7 +16,6 @@ const FetchWeatherApiHook = () => {
         const new_lang = changeLanguageString(lang)
 
         const response = await api.get<weatherTypes>(`/forecast.json?key=${apiConstants.api_key}&days=3&q=${lat} ${lng}&aqi=no&lang=${new_lang}`)
-        console.log(response.data)
         setGeoState({ lat: response.data.location?.lat, lng: response.data.location?.lon })
         setWeatherState(response.data)
         setGeneralState({ language: lang, loading: false })
