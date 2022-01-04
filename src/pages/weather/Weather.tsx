@@ -116,7 +116,9 @@ const Weather = () => {
                     </div>
                 </Skeleton>
             </div>
-            <SelectCities />
+            <Skeleton className={styles.sk_select} loading={generalState.loading} active>
+                <SelectCities />
+            </Skeleton>
             <Forecast />
             <Modal
                 title={messages.get('weather.location')}

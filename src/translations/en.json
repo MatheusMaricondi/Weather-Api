@@ -17,7 +17,16 @@
 	"forecast.tab.wind": "Wind",
 	"forecast.tab.datetime": "Datetime",
 	"forecast.search.placeholder": "Type a local",
+	"forecast.chart.subtitle": "Description",
+	"forecast.chart.type": "along the day",
 	"common.buttom.close": "Close",
 	"cities.search.title": "Other locations",
-	"cities.search.subtitle": "If you prefer, you can also choose another location."
+	"cities.search.subtitle": "If you prefer, you can also choose another location.",
+	"common.week.monday": "Monday",
+	"common.week.tuesday": "Tuesday",
+	"common.week.wednesday": "Wednesday",
+	"common.week.thursday": "Thursday",
+	"common.week.friday": "Friday",
+	"common.week.saturday": "Saturday",
+	"common.week.sunday": "Sunday"
 }

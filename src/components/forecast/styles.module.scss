@@ -1,3 +1,24 @@
 .tab_container {
     padding: 20px;
 }
+
+.forecast_tab_subtitle_conteiner {
+    display: flex;
+    flex-direction: row;
+    font-size: 14px;
+    justify-content: center;
+
+    .forecast_tab_desc {
+        font-weight: 600;
+    }
+    .forecast_tab_subtitle {
+        padding: 0 10px;
+    }
+    .forecast_tab_type {
+        font-style: italic;
+        font-weight: lighter;
+    }
+}
+.forecast_days_container {
+    align-content: center;
+}

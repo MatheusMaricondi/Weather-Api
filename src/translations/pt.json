@@ -17,7 +17,16 @@
     "forecast.tab.wind": "Vento",
     "forecast.tab.datetime": "Data hora",
     "forecast.search.placeholder": "Digite um local",
+    "forecast.chart.subtitle": "Descrição",
+    "forecast.chart.type": "ao longo do dia",
     "common.buttom.close": "Fechar",
     "cities.search.title": "Outras localidades",
-    "cities.search.subtitle": "Se voce preferir pode tambem escolher outra localidade."
+    "cities.search.subtitle": "Se voce preferir pode tambem escolher outra localidade.",
+    "common.week.monday": "Segunda",
+    "common.week.tuesday": "Terça",
+    "common.week.wednesday": "Quarta",
+    "common.week.thursday": "Quinta",
+    "common.week.friday": "Sexta",
+    "common.week.saturday": "Sábado",
+    "common.week.sunday": "Domingo"
 }

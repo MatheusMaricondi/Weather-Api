@@ -4,7 +4,7 @@ import { useMessages } from "../../services/messages";
 import { dataConstants } from '../../constants/data'
 import styles from './styles.module.scss'
 import { GoogleCharts } from 'google-charts';
-import { Card, Tabs, Radio } from "antd";
+import { Card, Tabs, Radio, Space } from "antd";
 
 
 const Forecast = () => {
@@ -38,14 +38,12 @@ const Forecast = () => {
     }, [generalState.loading])
 
     useEffect(() => {
-        if (forecastData.length > 0) {
-            console.log(forecastData)
+        if (forecastData.length) {
             GoogleCharts.load(drawChart)
         }
-    }, [generalState.loading, generalState.language, generalState.searchCity, forecastData, forecastDay])
+    }, [generalState.searchCity, forecastDay, forecastData])
 
     const normalizeData = () => {
-
         const br_lang = 'pt-BR'
 
         let allForecastDay = []
@@ -97,9 +95,9 @@ const Forecast = () => {
         let dataRowsWind = [[messages.get('forecast.tab.datetime'), `${messages.get('forecast.tab.wind')} - ${wind_l}`]]
 
         forecastData[forecastDay].hours.forEach(hour => {
-            dataRowsTemp.push([hour.datatime, hour.temp])
-            dataRowsRain.push([hour.datatime, hour.rain])
-            dataRowsWind.push([hour.datatime, hour.wind])
+            dataRowsTemp.push([hour.datatime.split(' ')[1], hour.temp])
+            dataRowsRain.push([hour.datatime.split(' ')[1], hour.rain])
+            dataRowsWind.push([hour.datatime.split(' ')[1], hour.wind])
         })
 
         const Rows = [
@@ -135,6 +133,14 @@ const Forecast = () => {
     function handleChangeDay(ev) {
         setForecastDay(ev.target.value)
     }
+
+    function getDayName(dateStr) {
+        const locale = 'en-US'
+        const date = new Date(`${dateStr} 00:00`);
+        const longWeek = date.toLocaleDateString(locale, { weekday: 'long' }).toLowerCase()
+        return messages.get(`common.week.${longWeek}`)
+    }
+
     return (
         <div className={styles.tab_container}>
             <Card
@@ -144,22 +150,26 @@ const Forecast = () => {
                 <Tabs onChange={handleChangeParam} defaultActiveKey="chart_temp">
                     {tabs.map((tab, idx) => (
                         <TabPane forceRender tab={tab.id} key={idx}>
+                            <div className={styles.forecast_tab_subtitle_conteiner}>
+                                <div className={styles.forecast_tab_desc}>{messages.get('forecast.chart.subtitle')}:</div>
+                                <div className={styles.forecast_tab_subtitle}>{forecastData.length > 0 && forecastData[forecastDay].day.condition.text}</div>
+                                <div className={styles.forecast_tab_type}>[ {messages.get('forecast.chart.type')} ]</div>
+                            </div>
                             <div style={{ height: '300px', width: '100%' }} id={tab.activeKey}> </div>
                         </TabPane>
                     ))}
                 </Tabs>
             </Card>
-            <Radio.Group onChange={ev => handleChangeDay(ev)} defaultValue={forecastDay} buttonStyle="solid">
-                {forecastData.map((it, idx) => (<Radio style={{ heigth: '200px', width: '100px' }} type="default" value={idx} key={idx}>
-                    <div>
-                        <div>{it.date}</div>
-                        <img src={it.day.condition.icon} />
-                        <div>{it.day.maxtemp} {it.day.mintemp}</div>
-                    </div>
-                </Radio>
-                ))}
-            </Radio.Group>
-        </div>
+            <Space align="center">
+                <Radio.Group onChange={ev => handleChangeDay(ev)} defaultValue={forecastDay} buttonStyle="outline" className={styles.forecast_days_container}>
+                    {forecastData.map((it, idx) => (
+                        <Radio.Button value={idx} key={idx}>
+                            {getDayName(it.date)}
+                        </Radio.Button>
+                    ))}
+                </Radio.Group>
+            </Space>
+        </div >
     )
 }
 

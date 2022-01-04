@@ -7,7 +7,7 @@ const RoutesPage = () => (
         <div>
             <Header />
             <Routes>
-                <Route path='/weather' element={<Weather />} />
+                <Route path='/' element={<Weather />} />
             </Routes>
         </div>
     </BrowserRouter>

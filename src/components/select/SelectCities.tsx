@@ -42,7 +42,7 @@ const SelectCities = () => {
     return (
         <div className={style.searchContainer}>
 
-            <Divider ><div><FaMapMarkedAlt size={40} /></div><div className={style.searchTitle}>{messages.get('cities.search.title')}</div> </Divider>
+            <Divider ><div className={style.searchTitle}>{messages.get('cities.search.title')}</div> </Divider>
             <div className={style.serachSubtitle}>{messages.get('cities.search.subtitle')}</div>
 
             <Select
