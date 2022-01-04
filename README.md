@@ -1,4 +1,5 @@
 <p align="center">
-  <img src="assets/forecast.png" width="350" title="hover text">
-  <!-- <img src="" width="350" alt="accessibility text"> -->
+  <img src="src/assets/weather.png" width="350" title="hover text">
+  <img src="src/assets/search.png" width="350" title="hover text">
+  <img src="src/assets/forecast.png" width="350" title="hover text">
 </p>
